@@ -46,13 +46,42 @@ public class EmployeeService {
         List<Employee> employees = employeeRepository.findAll();
         List<EmployeeResponseDTO> employeesDTO = new ArrayList<>();
 
-        if(employees.isEmpty()) {
+        if (employees.isEmpty()) {
             return employeesDTO;
         }
 
-      return employeesDTO = employees.stream()
+        return employeesDTO = employees.stream()
                 .map(emp -> new EmployeeResponseDTO(emp))
                 .collect(Collectors.toList());
 
+    }
+
+    public EmployeeResponseDTO updateEmployee(Long id, EmployeeRequestDTO employeeRequestDTO) {
+        Optional<Employee> employeeOpt = employeeRepository.findById(id);
+
+        if (!employeeOpt.isPresent()) {
+            throw new ObjectNotFoundException("Employee Not Found");
+        }
+
+        Employee employee = employeeOpt.get();
+
+        employee.setFirstName(employeeRequestDTO.firstName());
+        employee.setLastName(employeeRequestDTO.lastName());
+        employee.setEmail(employeeRequestDTO.email());
+
+        employeeRepository.save(employee);
+
+        return new EmployeeResponseDTO(employee);
+
+    }
+
+    public void deleteEmployee(Long id) {
+        Optional<Employee> employeeOpt = employeeRepository.findById(id);
+
+        if (!employeeOpt.isPresent()) {
+            throw new ObjectNotFoundException("Employee Not Found");
+        }
+
+        employeeRepository.deleteById(id);
     }
 }
