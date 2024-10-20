@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import React from 'react'
-import { listEmployers } from "../services/EmployeeService"
+import { deleteEmployee, listEmployers } from "../services/EmployeeService"
 import { useNavigate} from "react-router-dom"
 
 const ListEmployeeComponent = () => {
@@ -8,18 +8,41 @@ const ListEmployeeComponent = () => {
     const navigator = useNavigate();
     const [employees,setEmployees] = useState([]) 
 
-    useEffect( () =>{
-        listEmployers().then((Response) => {
-            setEmployees(Response.data)
-            console.log(Response.data)
-        }).catch(error =>{
-            console.log(error)
-        })
-    })
+    //ele bate na function de listar os funcionarios 
+    //adiciona esses funcionarios ao array de employees
+    // caso não venha nenhum employee ele seta como uma array vazio pra evitar bugs
+    
+    useEffect(() => {
+        listEmployers().then((response) => {
+            if (Array.isArray(response.data)) {
+                setEmployees(response.data);
+            } else {
+                setEmployees([]);
+            }
+        }).catch(error => {
+            console.log(error);
+            setEmployees([]);
+        });
+    }, []);
 
 
     function addNewEmployee(){
         navigator('/add-employee')
+    }
+
+    function updateEmployee(id){
+        navigator(`/update-employee/${id}`)
+    }
+
+    function deleteById(id){
+
+        deleteEmployee(id).then((response) => {
+            navigator('/')
+
+        }).catch((error)=>{
+            console.log(error)
+        })
+
     }
     
     return (
@@ -35,6 +58,7 @@ const ListEmployeeComponent = () => {
                         <th>Employee first name</th>
                         <th>Employee last name</th>
                         <th>Employee email </th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +69,11 @@ const ListEmployeeComponent = () => {
                                 <td>{employee.firstName}</td>
                                 <td>{employee.lastName}</td>
                                 <td>{employee.email}</td>
+                                <td> <div className="d-flex align-items-center justify-content-around">
+                                <button className="btn btn-dark" onClick={() =>updateEmployee(employee.id)}>Update</button>
+                                <button className=" btn btn-danger" onClick={() => deleteById(employee.id)}>Delete</button>
+                                </div>
+                                </td>
                             </tr>
                         )
                     }
