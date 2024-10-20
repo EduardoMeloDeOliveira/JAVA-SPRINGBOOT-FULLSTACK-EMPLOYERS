@@ -1,4 +1,4 @@
-<h1 align="center">Projeto de Gestão de Funcionários (Back-End)</h1>
+<h1 align="center">Projeto de Gestão de Funcionários (Full-stack springboot + react.js)</h1>
 
 <p align="center">Este é um projeto experimental para gestão de funcionários, com foco no back-end, e integração com o front-end utilizando React.</p>
 
@@ -8,7 +8,7 @@
 
 <p>Primeiro, você precisa clonar este repositório:</p>
 
-<pre><code>git clone &lt;URL_DO_REPOSITORIO&gt;</code></pre>
+<pre><code>git clone &lt;https://github.com/EduardoMeloDeOliveira/JAVA-SPRINGBOOT-FULLSTACK-EMPLOYERS.git&gt;</code></pre>
 
 <h3>2. Inicie o Back-End</h3>
 
