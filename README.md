@@ -48,8 +48,6 @@
 
 <p><strong>Lembre-se:</strong> Não derrube o container do banco de dados nem a aplicação back-end enquanto estiver utilizando o sistema.</p>
 
-<p>Este é apenas um projeto experimental e, como o foco maior foi o back-end, <strong>não houve implementação de proteção de rotas</strong> no front-end.</p>
-
 <h2>Nota Pessoal</h2>
 
 <p>Este projeto foi mais voltado para eu me aprofundar no uso de <strong>React</strong> e aprimorar minha experiência com a integração entre back-end e front-end.</p>
